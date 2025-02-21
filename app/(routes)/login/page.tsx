@@ -28,9 +28,10 @@ export default function LoginPage() {
         "https://swiftleads-backend.onrender.com/login",
         credentials,
         {
-          withCredentials: true,
+          withCredentials: false, // Change this to false
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json"
           },
         }
       );
