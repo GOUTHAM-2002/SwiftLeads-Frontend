@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import BASE_URL from "@/app/urls/urls";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post(
-        "https://swiftleads-backend.onrender.com/login",
+        `${BASE_URL}/login`,
         credentials,
         {
           withCredentials: false, // Change this to false
