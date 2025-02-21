@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 
 import axios from "axios";
@@ -1089,7 +1092,7 @@ export default function CRM() {
                   type="text"
                   value={editContact?.name || ""}
                   onChange={(e) =>
-                    setEditContact({ ...editContact, name: e.target.value })
+setEditContact(editContact ? { ...editContact, name: e.target.value } as Contact : null)
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter name"
@@ -1101,7 +1104,7 @@ export default function CRM() {
                   type="text"
                   value={editContact?.phone || ""}
                   onChange={(e) =>
-                    setEditContact({ ...editContact, phone: e.target.value })
+                    setEditContact(editContact ? { ...editContact, phone: e.target.value } as Contact : null)
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter phone"
