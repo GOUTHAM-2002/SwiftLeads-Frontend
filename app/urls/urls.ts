@@ -1,4 +1,4 @@
-const BASE_URL: string = "http://localhost:5001";
+const BASE_URL: string = "https://swiftleads-backend.onrender.com";
 
 // Make sure all API calls include /api prefix
 export const API_URL = `${BASE_URL}/api`;
