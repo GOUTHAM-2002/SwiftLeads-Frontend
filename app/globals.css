@@ -1,0 +1,62 @@
+:root {
+  --brand-dark-blue: #0d0a2c;
+  --brand-pink: #c742a8;
+  --brand-white: #ffffff;
+  --error-red: #ff4444;
+  --success-green: #00c853;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--brand-dark-blue);
+  color: var(--brand-white);
+  font-family: "Inter", sans-serif;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--brand-pink);
+  color: var(--brand-white);
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid rgba(199, 66, 168, 0.3);
+  border-radius: 8px;
+  background: rgba(13, 10, 44, 0.6);
+  color: var(--brand-white);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
