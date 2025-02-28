@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 

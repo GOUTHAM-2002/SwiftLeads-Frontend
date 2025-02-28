@@ -56,7 +56,46 @@ body {
   background: rgba(13, 10, 44, 0.6);
   color: var(--brand-white);
 }
+/* Add these styles to your globals.css or as a style tag */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Add custom scrollbar for the table */
+.contacts-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.contacts-table-wrapper::-webkit-scrollbar-track {
+  background: rgba(13, 10, 44, 0.5);
+  border-radius: 10px;
+}
+
+.contacts-table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(199, 66, 168, 0.5);
+  border-radius: 10px;
+}
+
+.contacts-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(199, 66, 168, 0.7);
+}
+
+/* Add perspective to create 3D effect */
+/* .perspective-[1000px] {
+  perspective: 1000px;
+} */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -720,7 +716,7 @@ export default function Caller() {
               log.message.toLowerCase().includes("initiated")
                 ? "text-green-500"
                 : log.message.toLowerCase().includes("completed")
-                ? "text-green-500"
+                ? "text-red-500"
                 : "text-white"
             }  
           `}
@@ -733,113 +729,98 @@ export default function Caller() {
           </div>
         </div>
         {/* Current Campaign Contacts */}
-        <div className="current-campaign-contacts bg-gradient-to-br from-[rgba(13,10,44,0.95)] to-[rgba(13,10,44,0.85)] backdrop-blur-xl rounded-2xl border border-[rgba(199,66,168,0.2)] p-8 mt-8 shadow-[0_8px_32px_rgba(199,66,168,0.15)]">
-          {/* Decorative elements */}
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] rounded-2xl pointer-events-none"></div>
-          <div className="absolute -inset-[1px] bg-gradient-to-br from-[rgba(199,66,168,0.2)] to-transparent rounded-2xl blur-[2px] pointer-events-none"></div>
-
-          <div className="contacts-header flex justify-between items-center mb-6">
-            <div className="header-content">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-[#c742a8] to-[#e066cc] bg-clip-text text-transparent m-0 mb-2">
-                Campaign Contacts Results
-              </h3>
-              <p className="text-[#8892b0] text-sm font-light">
-                Track and manage your campaign contacts
-              </p>
-            </div>
-            <div className="contact-stats bg-[rgba(199,66,168,0.1)] px-4 py-2 rounded-xl border border-[rgba(199,66,168,0.2)]">
-              <span className="text-[#c742a8] font-medium">
-                {campaignContacts.filter((c) => c.status === "completed").length}
-                <span className="text-[#8892b0]"> / </span>
-                {campaignContacts.length}
-                <span className="text-[#8892b0] ml-2 text-sm">Contacted</span>
+        <div className="current-campaign-contacts bg-[rgba(13,10,44,0.8)] rounded-xl border border-[rgba(199,66,168,0.2)] p-6 mt-8">
+          <div className="contacts-header flex justify-between items-center mb-4">
+            <h3 className="text-white m-0">Campaign Contacts Results</h3>
+            <div className="contact-stats text-[#8892b0] text-sm">
+              <span>
+                {
+                  campaignContacts.filter((c) => c.status === "completed")
+                    .length
+                }{" "}
+                / {campaignContacts.length} Contacted
               </span>
             </div>
           </div>
-
-          <div className="contacts-table-wrapper max-h-[400px] overflow-y-auto mt-4 rounded-xl border border-[rgba(199,66,168,0.15)]">
+          <div className="contacts-table-wrapper max-h-[400px] overflow-y-auto mt-4">
             <table className="contacts-table w-full border-collapse bg-[rgba(13,10,44,0.9)]">
               <thead>
-                <tr className="bg-gradient-to-r from-[rgba(199,66,168,0.1)] to-[rgba(199,66,168,0.05)]">
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                <tr>
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Name
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Phone
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Email
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Status
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Last Called
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Duration
                   </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
+                  <th className="p-4 text-left border-b border-[rgba(199,66,168,0.2)] bg-[rgba(13,10,44,0.95)] text-[#c742a8] font-medium sticky top-0 z-10">
                     Cost
-                  </th>
-                  <th className="p-5 text-left border-b border-[rgba(199,66,168,0.2)] text-[#c742a8] font-semibold sticky top-0 backdrop-blur-md backdrop-filter z-10 text-sm uppercase tracking-wider">
-                    Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[rgba(199,66,168,0.1)]">
+              <tbody>
                 {campaignContacts.map((contact) => (
                   <tr
                     key={contact.id}
-                    className="transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(199,66,168,0.1)] hover:to-transparent"
+                    className="hover:bg-[rgba(199,66,168,0.1)]"
                   >
-                    <td className="p-5 text-white font-medium">
+                    <td className="p-4 text-white font-medium border-b border-[rgba(199,66,168,0.2)]">
                       {contact.name}
                     </td>
-                    <td className="p-5 text-[#8892b0]">
+                    <td className="p-4 text-[#8892b0] border-b border-[rgba(199,66,168,0.2)]">
                       {contact.phone}
                     </td>
-                    <td className="p-5 text-[#8892b0]">
+                    <td className="p-4 text-[#8892b0] border-b border-[rgba(199,66,168,0.2)]">
                       {contact.email || "-"}
                     </td>
-                    <td className="p-5">
+                    <td className="p-4 border-b border-[rgba(199,66,168,0.2)]">
                       <span
-                        className={`px-4 py-1.5 rounded-full text-sm font-medium inline-block transition-all duration-300
+                        className={`px-3 py-1 rounded-xl text-sm inline-block
                         ${
                           contact.status === "pending"
-                            ? "bg-gradient-to-r from-[#c742a8] to-[#e066cc] text-white shadow-[0_4px_12px_rgba(199,66,168,0.25)]"
+                            ? "bg-[rgba(255,152,0,0.2)] text-[#ff9800]"
                             : ""
                         }
                         ${
                           contact.status === "completed"
-                            ? "bg-gradient-to-r from-[#4caf50] to-[#45a049] text-white shadow-[0_4px_12px_rgba(76,175,80,0.25)]"
+                            ? "bg-[rgba(76,175,80,0.2)] text-[#4caf50]"
                             : ""
                         }`}
                       >
                         {contact.status}
                       </span>
                     </td>
-                    <td className="p-5 text-[#8892b0]">
+                    <td className="p-4 text-[#8892b0] border-b border-[rgba(199,66,168,0.2)]">
                       {contact.last_called
                         ? new Date(contact.last_called).toLocaleString()
                         : "-"}
                     </td>
-                    <td className="p-5 text-[#8892b0]">
+                    <td className="p-4 text-[#8892b0] border-b border-[rgba(199,66,168,0.2)]">
                       {contact.duration_seconds
                         ? `${Math.floor(contact.duration_seconds / 60)}m ${
                             contact.duration_seconds % 60
                           }s`
                         : "-"}
                     </td>
-                    <td className="p-5 text-[#8892b0]">
+                    <td className="p-4 text-[#8892b0] border-b border-[rgba(199,66,168,0.2)]">
                       ${contact.total_cost?.toFixed(3) || "0.000"}
                     </td>
-                    <td className="p-5">
+                    <td className="p-4 border-b border-[rgba(199,66,168,0.2)]">
                       <button
                         onClick={() => handleSingleCall(contact.id)}
-                        className="bg-gradient-to-r from-[#c742a8] to-[#e066cc] text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-[0_4px_12px_rgba(199,66,168,0.35)] hover:translate-y-[-1px] active:translate-y-[0px] flex items-center gap-2"
+                        className="bg-[#c742a8] text-white px-3 py-1 rounded-md hover:bg-[#a03590] transition-colors duration-300 text-sm"
                       >
-                        <i className="fas fa-phone-alt text-xs"></i>
                         Call
                       </button>
                     </td>

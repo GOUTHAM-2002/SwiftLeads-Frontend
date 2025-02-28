@@ -1,16 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-
-interface Campaign {
-  id: string;
-  name: string;
-  description: string;
-  call_window_start: string;
-  call_window_end: string;
-}
 
 interface ModalProps {
   campaign: Campaign;

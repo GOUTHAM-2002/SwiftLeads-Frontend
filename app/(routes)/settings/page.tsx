@@ -1,14 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 "use client";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
 import BASE_URL from "@/app/urls/urls";
 import BaseLayout from "@/app/components/layout/BaseLayout";
-import dynamic from 'next/dynamic';
 
 interface PhoneNumber {
   id: string;
@@ -38,7 +33,7 @@ interface Settings {
   phone_numbers: PhoneNumber[] | null;  
 }
 
-function SettingsComponent() {
+export default function Settings() {
   const [settings, setSettings] = useState<Settings>({
     vapi_api_key: "",
     assistant_id: null,
@@ -56,6 +51,7 @@ function SettingsComponent() {
     background_denoising_enabled: false,
     phone_numbers: null,
   });
+
   const [phoneNumbers, setPhoneNumbers] = useState<PhoneNumber[]>([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
@@ -65,21 +61,14 @@ function SettingsComponent() {
   // Fetch settings from backend
   const fetchSettings = async () => {
     try {
-      // Check if we're in the browser environment
-      if (typeof window === 'undefined') return;
-
+      // Get user_id from localStorage
       const userId = localStorage.getItem("user_id");
-      const token = localStorage.getItem("jwt_token");
-
-      if (!userId || !token) {
-        showAlert("Authentication required", "error");
-        return;
-      }
+      console.log(localStorage.getItem("jwt_token"));
 
       const response = await axios.get(`${BASE_URL}/api/getSettings`, {
         params: { user_id: userId },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
       });
 
@@ -92,21 +81,17 @@ function SettingsComponent() {
 
   const fetchPhoneNumbers = async () => {
     try {
-      // Check if we're in the browser environment
-      if (typeof window === 'undefined') return;
-
+      // Get user_id from localStorage
       const userId = localStorage.getItem("user_id");
+
+      // Get JWT token from localStorage
       const token = localStorage.getItem("jwt_token");
 
-      if (!userId || !token) {
-        showAlert("Authentication required", "error");
-        return;
-      }
-
+      // Make the axios request with dynamic user ID and Authorization header
       const response = await axios.get(`${BASE_URL}/api/getUsersPhoneNums`, {
-        params: { user_id: userId },
+        params: { user_id: userId }, // Use params to pass user_id
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Add Authorization header
         },
       });
 
@@ -118,13 +103,6 @@ function SettingsComponent() {
     }
   };
 
-  useEffect(() => {
-    // Only run in browser environment
-    if (typeof window !== 'undefined') {
-      fetchSettings();
-      fetchPhoneNumbers();
-    }
-  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -261,6 +239,11 @@ function SettingsComponent() {
     setAlert({ show: true, message, type });
     setTimeout(() => setAlert({ show: false, message: "", type: "" }), 3000);
   };
+
+  useEffect(() => {
+    fetchSettings();
+    fetchPhoneNumbers();
+  }, []);
 
   return (
     <BaseLayout isLoggedIn={true}>
@@ -859,13 +842,3 @@ function SettingsComponent() {
     </BaseLayout>
   );
 }
-const Settings = dynamic(() => Promise.resolve(SettingsComponent), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#C742A8]"></div>
-    </div>
-  ),
-});
-
-export default Settings;

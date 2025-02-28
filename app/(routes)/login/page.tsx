@@ -1,14 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import BASE_URL from "@/app/urls/urls";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,13 +21,12 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post(
-        `${BASE_URL}/login`,
+        "http://localhost:5001/login",
         credentials,
         {
-          withCredentials: false, // Change this to false
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
           },
         }
       );

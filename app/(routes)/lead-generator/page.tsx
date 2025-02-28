@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -63,7 +59,7 @@ export default function LeadGenerator() {
     <BaseLayout isLoggedIn={true}>
       <div className="container mx-auto px-4 py-8 bg-gradient-to-b from-[#0D0A2C] to-[#1A1744] text-white min-h-screen">
         <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-[#c742a8] to-[#8E2CFF] text-transparent bg-clip-text drop-shadow-lg">
-          ✨ Listings ✨
+          ✨ Lead Generator ✨
         </h1>
 
         {/* Search Bar */}

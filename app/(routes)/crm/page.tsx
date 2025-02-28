@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 "use client";
 
 import axios from "axios";
@@ -638,8 +635,8 @@ export default function CRM() {
   return (
     <BaseLayout isLoggedIn={true}>
       <div className="p-8 min-h-screen bg-[#0D0A2C]">
-        {/* Loading Indicator */}
-        {isLoading && (
+       {/* Loading Indicator */}
+       {isLoading && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-[#C742A8]"></div>
           </div>
@@ -651,22 +648,19 @@ export default function CRM() {
         </div>
 
         {/* Search and Actions */}
-        <div className="mb-8 relative max-w-4xl mx-auto transform hover:scale-[1.01] transition-all duration-300">
+        {/* Search Bar */}
+        <div className="mb-6">
           <input
             type="text"
-            className="w-full p-4 pl-12 border-2 border-[#C742A8]/30 rounded-xl 
-              bg-gradient-to-r from-[#1A1540]/80 to-[#2A1B4A]/80 
-              backdrop-blur-lg text-white 
-              focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50 focus:border-[#C742A8]/50
-              shadow-[0_0_15px_rgba(199,66,168,0.15)]
-              transition-all duration-300
-              text-lg placeholder:text-gray-400"
-            placeholder=" Search by name, email, or phone..."
+            className="w-full p-4 pl-12 border border-[#C742A8]/30 rounded-xl 
+              bg-[#1A1540]/50 text-white 
+              focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50 focus:border-[#C742A8]/50"
+            placeholder="Search by name, email, or phone..."
+            onChange={handleSearch}
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#C742A8]/10 to-[#8E2CFF]/10 rounded-xl blur-xl transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
-          <div className="absolute left-4 top-1/2 -translate-y-1/2">
+          <div className="absolute left-12 top-[76px]">
             <svg
-              className="w-5 h-5 text-[#C742A8] animate-pulse"
+              className="w-5 h-5 text-gray-400"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -678,206 +672,150 @@ export default function CRM() {
             </svg>
           </div>
         </div>
-
-        {/* Contacts Table */}
-        {/* Contacts Table */}
-        <div className="bg-gradient-to-r from-[#0D0A2C]/95 to-[#1A1540]/95 rounded-2xl border border-[#C742A8]/30 overflow-hidden shadow-2xl backdrop-blur-xl">
-          {/* Table Header with Actions */}
-          <div className="flex justify-between items-center p-6 border-b border-[#C742A8]/20 bg-gradient-to-r from-[#1A1540]/50 to-[#2A1B4A]/50">
-            <div className="flex items-center gap-6">
-              <button
-                onClick={() => {
-                  setSelectedContacts(
-                    selectedContacts.length === contacts.length
-                      ? []
-                      : contacts.map((contact) => contact.id)
-                  );
-                }}
-                className="px-6 py-2.5 bg-gradient-to-r from-[#C742A8]/20 to-[#8E2CFF]/20 text-white rounded-xl
-                  hover:from-[#C742A8]/30 hover:to-[#8E2CFF]/30 transition-all duration-300 transform hover:scale-105
-                  shadow-lg shadow-[#C742A8]/10 backdrop-blur-sm font-medium"
-              >
-                {selectedContacts.length === contacts.length
-                  ? "✨ Deselect All"
-                  : "✨ Select All"}
-              </button>
-              {selectedContacts.length > 0 && (
-                <div className="text-white text-sm bg-[#C742A8]/10 px-4 py-2 rounded-full border border-[#C742A8]/20
-                  shadow-inner backdrop-blur-sm">
-                  {selectedContacts.length} contacts selected
-                </div>
-              )}
-            </div>
-            <div className="flex gap-6">
-              <button
-                onClick={() => setShowCreateCampaignModal(true)}
-                className="px-6 py-2.5 bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-emerald-400 
-                  rounded-xl hover:from-emerald-500/30 hover:to-green-500/30 transition-all duration-300 
-                  transform hover:scale-105 shadow-lg shadow-emerald-500/10 backdrop-blur-sm font-medium
-                  disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2"
-                disabled={selectedContacts.length === 0}
-              >
-                <span className="text-lg">✦</span> Create Campaign
-              </button>
-              <div className="flex gap-4">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  className="hidden"
-                  accept=".csv"
-                  onChange={handleCSVImport}
-                />
-                <button
-                  className="px-6 py-2.5 bg-gradient-to-r from-[#C742A8]/20 to-[#8E2CFF]/20 text-white 
-                    rounded-xl hover:from-[#C742A8]/30 hover:to-[#8E2CFF]/30 transition-all duration-300 
-                    transform hover:scale-105 shadow-lg shadow-[#C742A8]/10 backdrop-blur-sm font-medium
-                    flex items-center gap-2"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <span className="text-lg">📤</span> Import CSV
-                </button>
-                <button
-                  onClick={exportCSV}
-                  className="px-6 py-2.5 bg-gradient-to-r from-[#C742A8]/20 to-[#8E2CFF]/20 text-white 
-                    rounded-xl hover:from-[#C742A8]/30 hover:to-[#8E2CFF]/30 transition-all duration-300 
-                    transform hover:scale-105 shadow-lg shadow-[#C742A8]/10 backdrop-blur-sm font-medium
-                    flex items-center gap-2"
-                >
-                  <span className="text-lg">📥</span> Export to CSV
-                </button>
-              </div>
-            </div>
+           {/* Records Count and Action Buttons */}
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-white">{contacts.length} Records</div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowCreateCampaignModal(true)}
+              className="px-4 py-2 bg-[#C742A8] text-white rounded-lg hover:bg-[#C742A8]/90 transition-colors"
+            >
+              Create Campaign
+            </button>
+            <button
+              className="px-4 py-2 bg-[#C742A8] text-white rounded-lg hover:bg-[#C742A8]/90 transition-colors"
+            >
+              Customize Columns
+            </button>
+            <button
+              className="px-4 py-2 bg-[#C742A8] text-white rounded-lg hover:bg-[#C742A8]/90 transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              CSV Import
+            </button>
+            <button
+              onClick={exportCSV}
+              className="px-4 py-2 bg-[#C742A8] text-white rounded-lg hover:bg-[#C742A8]/90 transition-colors"
+            >
+              Export CSV
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              className="hidden"
+              accept=".csv"
+              onChange={handleCSVImport}
+            />
           </div>
+        </div>
 
-          {/* Table */}
-           {/* Enhanced Luxury Table */}
-           <div className="overflow-x-auto">
+        {/* Delete All Records Button */}
+        <div className="mb-4">
+          <button
+            onClick={() => {
+              if (confirm("Are you sure you want to delete all records?")) {
+                // Add delete all functionality here
+              }
+            }}
+            className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors flex items-center gap-2"
+          >
+            <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
+            Delete All Records
+          </button>
+        </div>
+          {/* Contacts Table */}
+          <div className="overflow-x-auto rounded-xl border border-[#C742A8]/30 shadow-lg shadow-[#C742A8]/10">
             <table className="w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-[#C742A8]/5 to-[#8E2CFF]/5 text-gray-300 border-b border-[#C742A8]/20">
-                  <th className="p-6 text-left w-12">
-                    <div className="relative group">
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-5 w-5 text-[#C742A8] bg-[#0D0A2C] border-2 border-[#C742A8]/30 rounded 
-                          transition-all duration-300 ease-in-out
-                          checked:border-[#C742A8] checked:bg-[#C742A8]/20
-                          hover:border-[#C742A8] focus:ring-2 focus:ring-[#C742A8]/50"
-                        checked={selectedContacts.length === contacts.length}
-                        onChange={() => {
-                          setSelectedContacts(
-                            selectedContacts.length === contacts.length
-                              ? []
-                              : contacts.map((contact) => contact.id)
-                          );
-                        }}
-                      />
-                      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#C742A8]/10 to-[#8E2CFF]/10 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
+                <tr className="bg-[#1A1540]/50 border-b border-[#C742A8]/30">
+                  <th className="p-4 text-left w-12">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox h-5 w-5 text-[#C742A8] bg-transparent border-2 border-[#C742A8]/30 rounded"
+                      checked={selectedContacts.length === contacts.length && contacts.length > 0}
+                      onChange={() => {
+                        setSelectedContacts(
+                          selectedContacts.length === contacts.length
+                            ? []
+                            : contacts.map((contact) => contact.id)
+                        );
+                      }}
+                    />
                   </th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Name</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Phone</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Email</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Status</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Last Called</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Total Calls</th>
-                  <th className="p-6 text-left font-medium tracking-wider text-sm uppercase">Actions</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">MOBILE PHONE</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">NAME</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">SOURCE</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">PIPELINE STAGE</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">STATUS</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">TOTAL CALLS</th>
+                  <th className="p-4 text-left text-[#C742A8] font-medium">ACTIONS</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#C742A8]/10">
                 {currentContacts.map((contact) => (
                   <tr
                     key={contact.id}
-                    className="group transition-all duration-300 hover:bg-gradient-to-r from-[#C742A8]/5 to-[#8E2CFF]/5 backdrop-blur-sm"
+                    className="hover:bg-[#1A1540]/30 transition-colors duration-200"
                   >
-                    <td className="p-6">
-                      <div className="relative">
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-5 w-5 text-[#C742A8] bg-[#0D0A2C] border-2 border-[#C742A8]/30 rounded 
-                            transition-all duration-300 ease-in-out
-                            checked:border-[#C742A8] checked:bg-[#C742A8]/20
-                            hover:border-[#C742A8] focus:ring-2 focus:ring-[#C742A8]/50"
-                          checked={selectedContacts.includes(contact.id)}
-                          onChange={() => {
-                            setSelectedContacts((prev) =>
-                              prev.includes(contact.id)
-                                ? prev.filter((id) => id !== contact.id)
-                                : [...prev, contact.id]
-                            );
-                          }}
-                        />
+                    <td className="p-4">
+                      <input
+                        type="checkbox"
+                        className="form-checkbox h-5 w-5 text-[#C742A8] bg-transparent border-2 border-[#C742A8]/30 rounded"
+                        checked={selectedContacts.includes(contact.id)}
+                        onChange={() => {
+                          setSelectedContacts((prev) =>
+                            prev.includes(contact.id)
+                              ? prev.filter((id) => id !== contact.id)
+                              : [...prev, contact.id]
+                          );
+                        }}
+                      />
+                    </td>
+                    <td className="p-4 text-white font-medium">{contact.phone}</td>
+                    <td className="p-4 text-white font-medium">{contact.name}</td>
+                    <td className="p-4 text-white">
+                      <div className="flex items-center">
+                        <select className="bg-transparent text-white border-none focus:ring-0 cursor-pointer">
+                          <option>Outbound Cold Call</option>
+                          <option>Inbound Lead</option>
+                          <option>Referral</option>
+                        </select>
+                        <svg className="w-4 h-4 ml-1 text-[#C742A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                       </div>
                     </td>
-                    <td className="p-6">
-                      <div className="text-white font-medium group-hover:text-[#C742A8] transition-colors duration-300">
-                        {contact.name}
+                    <td className="p-4">
+                      <div className="bg-gradient-to-r from-[#2E3192]/40 to-[#1BFFFF]/30 text-white px-4 py-2 rounded-lg text-center font-medium 
+                        shadow-lg shadow-blue-500/20 border border-blue-500/20 backdrop-blur-sm 
+                        hover:scale-105 transition-all duration-300 hover:shadow-blue-400/30">
+                        New Lead
                       </div>
                     </td>
-                    <td className="p-6">
-                      <div className="text-white/80 group-hover:text-white transition-colors duration-300">
-                        {contact.phone}
+                    <td className="p-4">
+                      <div className="bg-gradient-to-r from-[#C742A8]/40 to-[#FF6B81]/30 text-white px-4 py-2 rounded-lg text-center font-medium 
+                        shadow-lg shadow-[#C742A8]/20 border border-[#C742A8]/20 backdrop-blur-sm 
+                        hover:scale-105 transition-all duration-300 hover:shadow-[#C742A8]/30">
+                        Active
                       </div>
                     </td>
-                    <td className="p-6">
-                      <div className="text-white/80 group-hover:text-white transition-colors duration-300">
-                        {contact.email || "-"}
-                      </div>
-                    </td>
-                    <td className="p-6">
-                      <span
-                        className={`px-3 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase
-                          backdrop-blur-md shadow-lg transition-all duration-300 
-                          ${
-                            contact.status === "completed"
-                              ? "bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                              : contact.status === "pending"
-                              ? "bg-gradient-to-r from-yellow-500/10 to-amber-500/10 text-amber-400 border border-yellow-500/20"
-                              : "bg-gradient-to-r from-red-500/10 to-rose-500/10 text-rose-400 border border-red-500/20"
-                          }`}
-                      >
-                        {contact.status}
-                      </span>
-                    </td>
-                    <td className="p-6">
-                      <div className="text-white/80 group-hover:text-white transition-colors duration-300">
-                        {contact.last_called || "-"}
-                      </div>
-                    </td>
-                    <td className="p-6">
-                      <div className="text-white/80 group-hover:text-white transition-colors duration-300">
-                        {contact.total_calls || 0}
-                      </div>
-                    </td>
-                    <td className="p-6">
-                      <div className="flex gap-3">
-                        <button
-                          onClick={() => {
-                            setSelectedContact(contact);
-                            setShowModal(true);
-                          }}
-                          className="p-2.5 bg-gradient-to-r from-[#C742A8]/10 to-[#8E2CFF]/10 text-white rounded-lg
-                            hover:from-[#C742A8]/20 hover:to-[#8E2CFF]/20 
-                            transition-all duration-300 transform hover:scale-105
-                            border border-[#C742A8]/20 hover:border-[#C742A8]/40
-                            shadow-lg shadow-[#C742A8]/5 hover:shadow-[#C742A8]/10"
-                        >
+                    <td className="p-4 text-white text-center font-medium">{contact.total_calls || 0}</td>
+                    <td className="p-4">
+                      <div className="flex gap-3 justify-center">
+                        <button className="text-[#C742A8] hover:text-[#C742A8]/80 transition-colors p-1.5 rounded-full hover:bg-[#C742A8]/10">
                           <FontAwesomeIcon icon={faEye} className="w-4 h-4" />
                         </button>
-                        <button
+                        <button 
+                          className="text-[#C742A8] hover:text-[#C742A8]/80 transition-colors p-1.5 rounded-full hover:bg-[#C742A8]/10"
                           onClick={() => {
                             setEditContact(contact);
                             setShowEditModal(true);
                           }}
-                          className="p-2.5 bg-gradient-to-r from-[#C742A8]/10 to-[#8E2CFF]/10 text-white rounded-lg
-                            hover:from-[#C742A8]/20 hover:to-[#8E2CFF]/20 
-                            transition-all duration-300 transform hover:scale-105
-                            border border-[#C742A8]/20 hover:border-[#C742A8]/40
-                            shadow-lg shadow-[#C742A8]/5 hover:shadow-[#C742A8]/10"
                         >
                           <FontAwesomeIcon icon={faEdit} className="w-4 h-4" />
                         </button>
-                        <button
+                        <button 
+                          className="text-red-400 hover:text-red-300 transition-colors p-1.5 rounded-full hover:bg-red-500/10"
                           onClick={async () => {
                             try {
                               const response = await axios.delete(
@@ -902,11 +840,6 @@ export default function CRM() {
                               );
                             }
                           }}
-                          className="p-2.5 bg-gradient-to-r from-red-500/10 to-rose-500/10 text-rose-400 rounded-lg
-                            hover:from-red-500/20 hover:to-rose-500/20 
-                            transition-all duration-300 transform hover:scale-105
-                            border border-red-500/20 hover:border-red-500/40
-                            shadow-lg shadow-red-500/5 hover:shadow-red-500/10"
                         >
                           <FontAwesomeIcon icon={faTrash} className="w-4 h-4" />
                         </button>
@@ -1092,7 +1025,7 @@ export default function CRM() {
                   type="text"
                   value={editContact?.name || ""}
                   onChange={(e) =>
-setEditContact(editContact ? { ...editContact, name: e.target.value } as Contact : null)
+                    setEditContact({ ...editContact, name: e.target.value })
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter name"
@@ -1104,7 +1037,7 @@ setEditContact(editContact ? { ...editContact, name: e.target.value } as Contact
                   type="text"
                   value={editContact?.phone || ""}
                   onChange={(e) =>
-                    setEditContact(editContact ? { ...editContact, phone: e.target.value } as Contact : null)
+                    setEditContact({ ...editContact, phone: e.target.value })
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter phone"
@@ -1144,7 +1077,6 @@ setEditContact(editContact ? { ...editContact, name: e.target.value } as Contact
             {showToast.message}
           </div>
         )}
-      </div>
-    </BaseLayout>
+      </BaseLayout>
   );
 }
