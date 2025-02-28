@@ -305,6 +305,19 @@ export default function Caller() {
       alert(`Calls can only be made between ${startTime} and ${endTime} EST`);
       return;
     }
+    const newLogEntry: LogEntry = {
+      timestamp: new Date().toLocaleTimeString(),
+      message: "=== Starting Campaign ===",
+    };
+    // ... existing code ...
+setLogs((prevLogs) => [
+  {
+    timestamp: new Date().toLocaleTimeString(),
+    message: "=== Starting Campaign ===",
+  },
+  ...prevLogs,
+]);
+// ... existing code ...
 
     try {
       localStorage.setItem("selected_campaign", selectedCampaign.id);
@@ -325,7 +338,17 @@ export default function Caller() {
   };
 
   const stopCalling = async () => {
+    
     try {
+
+      // ... existing code ...
+  setLogs((prevLogs) => [
+    {
+      timestamp: new Date().toLocaleTimeString(),
+      message: "=== Stopping Campaign ===",
+    },
+    ...prevLogs,
+  ]);
       await axios.post(`${BASE_URL}/api/stopCampaignCalls`, {
         campaign_id: selectedCampaign?.id,
       });
@@ -788,12 +811,12 @@ export default function Caller() {
                       <span
                         className={`px-3 py-1 rounded-xl text-sm inline-block
                         ${
-                          contact.status === "pending"
+                          contact.status === "Pending"
                             ? "bg-[rgba(255,152,0,0.2)] text-[#ff9800]"
                             : ""
                         }
                         ${
-                          contact.status === "completed"
+                          contact.status === "Completed"
                             ? "bg-[rgba(76,175,80,0.2)] text-[#4caf50]"
                             : ""
                         }`}

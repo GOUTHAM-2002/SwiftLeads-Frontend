@@ -658,19 +658,7 @@ export default function CRM() {
             placeholder="Search by name, email, or phone..."
             onChange={handleSearch}
           />
-          <div className="absolute left-12 top-[76px]">
-            <svg
-              className="w-5 h-5 text-gray-400"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </div>
+
         </div>
            {/* Records Count and Action Buttons */}
         <div className="flex justify-between items-center mb-4">
@@ -1025,7 +1013,7 @@ export default function CRM() {
                   type="text"
                   value={editContact?.name || ""}
                   onChange={(e) =>
-                    setEditContact({ ...editContact, name: e.target.value })
+                    setEditContact(editContact ? { ...editContact, name: e.target.value } : null)
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter name"
@@ -1037,7 +1025,7 @@ export default function CRM() {
                   type="text"
                   value={editContact?.phone || ""}
                   onChange={(e) =>
-                    setEditContact({ ...editContact, phone: e.target.value })
+setEditContact(editContact ? { ...editContact, phone: e.target.value } : null)
                   }
                   className="w-full p-2 bg-white/10 border border-[#C742A8]/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-[#C742A8]/50"
                   placeholder="Enter phone"

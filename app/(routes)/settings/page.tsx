@@ -143,7 +143,7 @@ export default function Settings() {
       );
 
       if (response.status === 200) {
-        showAlert("Settings saved successfully", "success");
+        showAlert(" Settings saved successfully", "success");
       } else {
         showAlert("Failed to save settings", "error");
       }
